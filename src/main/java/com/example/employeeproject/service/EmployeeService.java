@@ -22,7 +22,13 @@ public class EmployeeService {
     public List<Employee> getAllEmployees() {
         return iEmployeeService.findAll();
     }
+
     public Optional<Employee> getById(int id) {
         return iEmployeeService.findById(id);
+    }
+
+    public String deleteById(int id) {
+        iEmployeeService.deleteById(id);
+        return "Employee with ID: " + id + " is Deleted Successfully!!";
     }
 }
