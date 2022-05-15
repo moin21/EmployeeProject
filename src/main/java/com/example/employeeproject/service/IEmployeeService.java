@@ -1,10 +1,18 @@
 package com.example.employeeproject.service;
 
 import com.example.employeeproject.entity.Employee;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface IEmployeeService extends JpaRepository<Employee, Integer> {
+import java.util.List;
+import java.util.Optional;
 
+public interface IEmployeeService {
+    Employee addEmployee(Employee employee);
+
+    List<Employee> getAllEmployees();
+
+    Optional<Employee> getById(int id);
+
+    String deleteById(int id);
+
+    Employee editEmployee(Employee employee, int id);
 }

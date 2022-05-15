@@ -1,7 +1,8 @@
 package com.example.employeeproject.controller;
 
 import com.example.employeeproject.entity.Employee;
-import com.example.employeeproject.service.EmployeeService;
+import com.example.employeeproject.service.EmployeeServiceImplementation;
+import com.example.employeeproject.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,21 +13,25 @@ import java.util.Optional;
 public class EmployeeController {
 
     @Autowired
-    EmployeeService employeeService;
+    IEmployeeService iEmployeeService;
     @PostMapping()
-    public Employee createUSer(@RequestBody Employee employee){
-        return employeeService.addEmployee(employee);
+    public Employee createEmployees(@RequestBody Employee employee){
+        return iEmployeeService.addEmployee(employee);
     }
     @GetMapping()
-    public List<Employee> createUSer(){
-        return employeeService.getAllEmployees();
+    public List<Employee> getAllEmployees(){
+        return iEmployeeService.getAllEmployees();
     }
     @GetMapping("/{id}")
-    public Optional<Employee> createUSer(@PathVariable int id){
-        return employeeService.getById(id);
+    public Optional<Employee> getByEmployee(@PathVariable int id){
+        return iEmployeeService.getById(id);
     }
    @DeleteMapping("/{id}")
    public String deleteEmployee(@PathVariable int id){
-        return employeeService.deleteById(id);
+        return iEmployeeService.deleteById(id);
    }
+    @PutMapping("/{id}")
+    public Employee editEmployee(@RequestBody Employee employee, @PathVariable int id){
+        return iEmployeeService.editEmployee(employee, id);
+    }
 }
