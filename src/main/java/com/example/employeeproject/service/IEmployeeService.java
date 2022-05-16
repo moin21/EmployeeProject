@@ -5,6 +5,9 @@ import com.example.employeeproject.entity.Employee;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Interface containing methods from service class - IEmployeeService
+ */
 public interface IEmployeeService {
     Employee addEmployee(Employee employee);
 
