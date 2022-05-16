@@ -1,5 +1,6 @@
 package com.example.employeeproject.service;
 
+import com.example.employeeproject.dto.EmployeeDTO;
 import com.example.employeeproject.entity.Employee;
 import com.example.employeeproject.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,15 +67,16 @@ public class EmployeeService implements IEmployeeService {
      * If there is a match by passed id, we create a new employee object using the same id - employee1.
      * Passing the object to the save method.
      *
-     * @param employee - employee object with new field values.
-     * @param id       - Id of employee required to delete from database.
+     * @param employeeDTO - employee object with new field values.
+     * @param id          - Id of employee required to delete from database.
      * @return - implementation of save method from EmployeeRepository.
      */
-    public Employee editEmployee(Employee employee, int id) {
+    public String editEmployee(EmployeeDTO employeeDTO, int id) {
         if (employeeRepository.findById(id).isPresent()) {
-            Employee employee1 = new Employee(id, employee);
-            return employeeRepository.save(employee1);
+            Employee employee1 = new Employee(id, employeeDTO);
+           Employee alpha = employeeRepository.save(employee1);
+           return "This is the result"+ alpha;
         }
-        return null;
+        return "No Match";
     }
 }

@@ -1,12 +1,13 @@
 package com.example.employeeproject.controller;
 
+import com.example.employeeproject.dto.EmployeeDTO;
+import com.example.employeeproject.dto.ResponseDTO;
 import com.example.employeeproject.entity.Employee;
 import com.example.employeeproject.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Controller Class - EmployeeController.
@@ -24,57 +25,70 @@ public class EmployeeController {
     /**
      * PostMapping method to create employee in database.
      * URL - /post
+     * Creating Employee object using EmployeeDTO object taken from Request Body - employee1
+     * Creating responseDTO object with message and implementation of add employee method on employee1
      *
-     * @param employee - employee object to be provided in RequestBody.
-     * @return - implementation of addEmployee method from IEmployeeService on employee object.
+     * @param employeeDTO - EmployeeDTO object to be provided in RequestBody.
+     * @return - ResponseEntity consisting response DTO and Status Code.
      */
     @PostMapping("/post")
-    public Employee createEmployees(@RequestBody Employee employee) {
-        return iEmployeeService.addEmployee(employee);
+    public ResponseEntity<ResponseDTO> createEmployees(@RequestBody EmployeeDTO employeeDTO) {
+        Employee employee1 = new Employee(employeeDTO);
+        ResponseDTO responseDTO = new ResponseDTO("Employee Created Successfully", iEmployeeService.addEmployee(employee1));
+        return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
 
     /**
      * GetMapping method to get all existing employees in database.
      * URL - /get-all
+     * Creating responseDTO object with message and implementation of getAllEmployees method.
      *
-     * @return - implementation of getAllEmployees method from IEmployeeService.
+     * @return - ResponseEntity consisting response DTO and Status Code.
      */
     @GetMapping("/get-all")
-    public List<Employee> getAllEmployees() {
-        return iEmployeeService.getAllEmployees();
+    public ResponseEntity<ResponseDTO> getAllEmployees() {
+        ResponseDTO responseDTO = new ResponseDTO("Employee List Received Successfully", iEmployeeService.getAllEmployees());
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
     /**
      * GetMapping method to get specific employee by id.
+     * URL - /get/id.
+     * Creating responseDTO object with message and implementation of getById using id.
      *
      * @param id - Id of existing employee that needs to be updated in path variable.
-     * @return - implementation of getById method from IEmployeeService.
+     * @return - ResponseEntity consisting response DTO and Status Code.
      */
     @GetMapping("get/{id}")
-    public Optional<Employee> getByEmployee(@PathVariable int id) {
-        return iEmployeeService.getById(id);
+    public ResponseEntity<ResponseDTO> getByID(@PathVariable int id) {
+        ResponseDTO responseDTO = new ResponseDTO("Employee Received Successfully", iEmployeeService.getById(id));
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
     /**
      * DeleteMapping method to delete specific employee by id.
+     * Creating responseDTO object with message and implementation of deleteById using id.
      *
      * @param id - Id of existing employee that needs to be deleted in path variable.
-     * @return - implementation of deleteById method from IEmployeeService.
+     * @return - ResponseEntity consisting response DTO and Status Code.
      */
     @DeleteMapping("delete/{id}")
-    public String deleteEmployee(@PathVariable int id) {
-        return iEmployeeService.deleteById(id);
+    public ResponseEntity<ResponseDTO> deleteEmployee(@PathVariable int id) {
+        ResponseDTO responseDTO = new ResponseDTO("Employee Deleted Successfully", iEmployeeService.deleteById(id));
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
     /**
      * PutMapping method to edit existing employee by id.
+     * Creating responseDTO object with message and implementation of editEmployee using id and employeeDTO.
      *
-     * @param employee - Employee object with new field values that need to be placed.
-     * @param id       - Id of existing employee that needs to be updated in path variable.
-     * @return - implementation of editEmployee method from IEmployeeService by passing Id and employee object.
+     * @param employeeDTO - EmployeeDTO object with new field values that need to be placed.
+     * @param id          - Id of existing employee that needs to be updated in path variable.
+     * @return - ResponseEntity consisting response DTO and Status Code.
      */
     @PutMapping("update/{id}")
-    public Employee editEmployee(@RequestBody Employee employee, @PathVariable int id) {
-        return iEmployeeService.editEmployee(employee, id);
+    public ResponseEntity<ResponseDTO> editEmployee(@RequestBody EmployeeDTO employeeDTO, @PathVariable int id) {
+        ResponseDTO responseDTO = new ResponseDTO("Employee Updated Successfully", iEmployeeService.editEmployee(employeeDTO, id));
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 }

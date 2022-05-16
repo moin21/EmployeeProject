@@ -1,5 +1,6 @@
 package com.example.employeeproject.entity;
 
+import com.example.employeeproject.dto.EmployeeDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,18 +42,33 @@ public class Employee {
      * Constructor : Using employee object and Id
      *
      * @param id       - Id of employee
-     * @param employee - employee object.
+     * @param employeeDTO - employeeDTO object.
      */
-    public Employee(int id, Employee employee) {
+    public Employee(int id, EmployeeDTO employeeDTO) {
         this.id = id;
-        this.fullName = employee.fullName;
-        this.profilePic = employee.profilePic;
-        this.gender = employee.gender;
-        this.department = employee.department;
-        this.mobileNumber = employee.mobileNumber;
-        this.notes = employee.notes;
-        this.salary = employee.salary;
-        this.startDate = employee.startDate;
+        this.fullName = employeeDTO.fullName;
+        this.profilePic = employeeDTO.profilePic;
+        this.gender = employeeDTO.gender;
+        this.department = employeeDTO.department;
+        this.mobileNumber = employeeDTO.mobileNumber;
+        this.notes = employeeDTO.notes;
+        this.salary = employeeDTO.salary;
+        this.startDate = employeeDTO.startDate;
+    }
+
+    /**
+     * Constructor: Using employeeDTO
+     * @param employeeDTO - employeeDTO object.
+     */
+    public Employee(EmployeeDTO employeeDTO) {
+        this.fullName = employeeDTO.fullName;
+        this.profilePic = employeeDTO.profilePic;
+        this.gender = employeeDTO.gender;
+        this.department = employeeDTO.department;
+        this.mobileNumber = employeeDTO.mobileNumber;
+        this.notes = employeeDTO.notes;
+        this.salary = employeeDTO.salary;
+        this.startDate = employeeDTO.startDate;
     }
 }
 

@@ -1,5 +1,6 @@
 package com.example.employeeproject.service;
 
+import com.example.employeeproject.dto.EmployeeDTO;
 import com.example.employeeproject.entity.Employee;
 
 import java.util.List;
@@ -17,5 +18,5 @@ public interface IEmployeeService {
 
     String deleteById(int id);
 
-    Employee editEmployee(Employee employee, int id);
+    String editEmployee(EmployeeDTO employeeDtO, int id);
 }
