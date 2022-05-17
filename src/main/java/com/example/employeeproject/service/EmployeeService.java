@@ -2,6 +2,7 @@ package com.example.employeeproject.service;
 
 import com.example.employeeproject.dto.EmployeeDTO;
 import com.example.employeeproject.entity.Employee;
+import com.example.employeeproject.exception.CustomException;
 import com.example.employeeproject.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,8 +37,11 @@ public class EmployeeService implements IEmployeeService {
      * @return - implementation of findAll method from EmployeeRepository.
      */
     public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
+        if (employeeRepository.findAll().isEmpty()) {
+            throw new CustomException("No employee in database.");
+        } else return employeeRepository.findAll();
     }
+
 
     /**
      * Method to get employees using Id from database.
@@ -46,7 +50,9 @@ public class EmployeeService implements IEmployeeService {
      * @return - implementation of findById method from EmployeeRepository.
      */
     public Optional<Employee> getById(int id) {
-        return employeeRepository.findById(id);
+        if (employeeRepository.findById(id).isPresent()) {
+            return employeeRepository.findById(id);
+        } else throw new CustomException("No employee matches with the given ID");
     }
 
     /**
@@ -59,7 +65,7 @@ public class EmployeeService implements IEmployeeService {
         if (employeeRepository.findById(id).isPresent()) {
             employeeRepository.deleteById(id);
             return "Employee with ID: " + id + " is Deleted Successfully!!";
-        } else return "No employee was found with given id.";
+        } else throw new CustomException("No employee matches with the given ID");
     }
 
     /**
@@ -76,8 +82,6 @@ public class EmployeeService implements IEmployeeService {
             Employee employee1 = new Employee(id, employeeDTO);
             Employee alpha = employeeRepository.save(employee1);
             return alpha;
-        }
-
-        return null;
+        } else throw new CustomException("No employee matches with the given ID");
     }
 }
