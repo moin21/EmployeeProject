@@ -18,5 +18,5 @@ public interface IEmployeeService {
 
     String deleteById(int id);
 
-    String editEmployee(EmployeeDTO employeeDtO, int id);
+    Employee editEmployee(EmployeeDTO employeeDtO, int id);
 }

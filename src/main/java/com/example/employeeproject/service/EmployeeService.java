@@ -71,12 +71,13 @@ public class EmployeeService implements IEmployeeService {
      * @param id          - Id of employee required to delete from database.
      * @return - implementation of save method from EmployeeRepository.
      */
-    public String editEmployee(EmployeeDTO employeeDTO, int id) {
+    public Employee editEmployee(EmployeeDTO employeeDTO, int id) {
         if (employeeRepository.findById(id).isPresent()) {
             Employee employee1 = new Employee(id, employeeDTO);
-           Employee alpha = employeeRepository.save(employee1);
-           return "This is the result"+ alpha;
-        } else throw new RuntimeException();
+            Employee alpha = employeeRepository.save(employee1);
+            return alpha;
+        }
 
+        return null;
     }
 }
