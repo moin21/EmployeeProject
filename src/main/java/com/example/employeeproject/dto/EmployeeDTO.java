@@ -14,6 +14,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmployeeDTO {
+    /**
+     * Fields defined with validations.
+     */
     @Pattern(regexp = "^[A-Z]{1}[a-zA-Z\\s]{2,}$", message = "Employee name Invalid: It should have at least 2 characters starting with Capital letter.")
     public String fullName;
     @NotEmpty(message = "Profile Pic cannot be null.")
