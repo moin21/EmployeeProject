@@ -76,7 +76,7 @@ public class EmployeeService implements IEmployeeService {
             Employee employee1 = new Employee(id, employeeDTO);
            Employee alpha = employeeRepository.save(employee1);
            return "This is the result"+ alpha;
-        }
-        return "No Match";
+        } else throw new RuntimeException();
+
     }
 }
