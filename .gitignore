@@ -35,3 +35,4 @@ HELP.md
 .mvn/
 mvnw
 mvnw.cmd
+application.log
