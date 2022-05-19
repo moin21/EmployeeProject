@@ -5,11 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Entity Class for Employee
@@ -32,7 +30,9 @@ public class Employee {
     public String fullName;
     public String profilePic;
     public String gender;
-    public String department;
+    @ElementCollection
+    @CollectionTable(name = "department", joinColumns = @JoinColumn(name = "id"))
+    public List<String> department;
     public int salary;
     public String mobileNumber;
     public LocalDate startDate;
